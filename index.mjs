@@ -51,9 +51,9 @@ let btnboxes = null;
                       </div>
                   </div>
                   <label for="pictureOnScale${i}">Picture of the pallet on the scale with the scale reading in view.</label>
-                  <input type="file" id="pictureOnScale${i}" accept="image/*" capture="camera">
+                  <input type="file" id="pictureOnScale${i}" accept="image/*">
                   <label for="pictureSidePallet${i}">Picture of the side of the pallet</label>
-                  <input type="file" id="pictureSidePallet${i}" accept="image/*" capture="environment">
+                  <input type="file" id="pictureSidePallet${i}" accept="image/*">
               </div>`;
             $('#pallet').append(palletDiv); 
         }
