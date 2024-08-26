@@ -11,6 +11,8 @@ let btnboxes = null;
     const numberOfPallet = $('#numberOfPallet').val();
 
     if (saleOrderNumber && numberOfPallet) {
+      $('#Send').show();
+      $('#log').text('');
       noofPallet = numberOfPallet
         // Clear existing pallet containers
         $('.palletContainer').remove();
@@ -137,6 +139,7 @@ async function submitForm(){
     };
 
     let noofPallet = parseInt(numberOfPallet);
+    console.log(noofPallet);
    
     if(noofPallet > 0) {
         for (let index = 0; index < noofPallet; index++) {
@@ -148,6 +151,7 @@ async function submitForm(){
             let weight = $(`#Weight${index}`).val()
             if (length == '' || width == '' || height  == '' || weight == ''){
               $('#log').text(`There are fields not filled on Pallet No. ${index + 1}`);
+              $('#log').show();
               return 
             }
 
@@ -189,7 +193,8 @@ async function submitForm(){
           formData.append('attachments[]', pallet[i].sidePalletfile);
       }
   }
-
+// https://tryexpress-1jl5.onrender.com
+// http://localhost:3000
   fetch('http://localhost:3000/v1/', {
       method: 'POST',
       body: formData
@@ -201,6 +206,24 @@ async function submitForm(){
       return response.json();
   })
   .then(data => {
+      $('#log').text('Pallet Details sent!');
+      $('#log').show();
+      noofPallet = 0;
+      btnbanding = null;
+      btncornerProtectorsUse = null;
+      btnShrinkWrapped = null;
+      btnboxes = null;
+      $('#saleOrderNumber').val('');
+      $('#numberOfPallet').val('');
+      $('.palletContainer').remove();
+      $('#btnbandingUsedYes').css('background-color', '#D9D9D9');
+      $('#btnbandingUsedNo').css('background-color', '#D9D9D9');
+      $('#btncornerProtectorsUseNo').css('background-color', '#D9D9D9');
+      $('#btncornerProtectorsUseyes').css('background-color', '#D9D9D9');
+      $('#btnShrinkWrappedNo').css('background-color', '#D9D9D9');
+      $('#btnShrinkWrappedYes').css('background-color', '#D9D9D9');$('#btnboxesNo').css('background-color', '#D9D9D9');
+      $('#btnboxesYes').css('background-color', '#D9D9D9');
+      $('#Send').hide();
       console.log('Data sent successfully:', data);
   })
   .catch(error => {
