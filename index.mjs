@@ -51,7 +51,7 @@ let btnboxes = null;
                       </div>
                   </div>
                   <label for="pictureOnScale${i}">Picture of the pallet on the scale with the scale reading in view.</label>
-                  <input type="file" id="pictureOnScale${i}" accept="image/*" capture="environment">
+                  <input type="file" id="pictureOnScale${i}" accept="image/*" capture="camera">
                   <label for="pictureSidePallet${i}">Picture of the side of the pallet</label>
                   <input type="file" id="pictureSidePallet${i}" accept="image/*" capture="environment">
               </div>`;
@@ -195,6 +195,8 @@ async function submitForm(){
   }
 // https://tryexpress-1jl5.onrender.com
 // http://localhost:3000
+  $('#log').text('Sending pallets');
+  $('#log').show();
   fetch('https://tryexpress-1jl5.onrender.com/v1/', {
       method: 'POST',
       body: formData
