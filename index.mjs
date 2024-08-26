@@ -51,7 +51,7 @@ let btnboxes = null;
                       </div>
                   </div>
                   <label for="pictureOnScale${i}">Picture of the pallet on the scale with the scale reading in view.</label>
-                  <input type="file" id="pictureOnScale${i}" accept="image/*">
+                  <input type="file" id="pictureOnScale${i}">
                   <label for="pictureSidePallet${i}">Picture of the side of the pallet</label>
                   <input type="file" id="pictureSidePallet${i}" accept="image/*">
               </div>`;
