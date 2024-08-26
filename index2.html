@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take or Upload Photos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        #photo-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .photo {
+            margin: 10px;
+            border: 2px solid #ddd;
+            padding: 5px;
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+        }
+        .photo img {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+        }
+        .delete-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+   .btn-group {
+  display: flex;
+}
+
+.btn-check {
+  display: none;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    <h1>Take or Upload Photos</h1>
+
+    <label for="photo-input">Upload or Take a Photo:</label>
+    <input type="file" id="photo-input" accept="image/*" capture="environment">
+    
+    <div id="photo-container"></div>
+    <div class="btn-group">
+      <p>Banding Used</p>
+      <input type="checkbox" id="Banding" class="btn-check" name="Banding" autocomplete="off">
+      <label for="Banding" class="btn">Yes</label>
+      <input type="checkbox" id="BandingN" class="btn-check" name="Banding" autocomplete="off">
+      <label for="BandingN" class="btn">No</label>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.querySelectorAll('.btn-check').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+          if (checkbox.checked) {
+            document.querySelectorAll('.btn-check').forEach(function(box) {
+              if (box !== checkbox) {
+                box.checked = false;
+              }
+            });
+          }
+        });
+});
+
+    </script>
+
+</body>
+</html>
