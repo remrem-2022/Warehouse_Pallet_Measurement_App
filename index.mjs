@@ -195,7 +195,7 @@ async function submitForm(){
   }
 // https://tryexpress-1jl5.onrender.com
 // http://localhost:3000
-  fetch('http://localhost:3000/v1/', {
+  fetch('https://tryexpress-1jl5.onrender.com/v1/', {
       method: 'POST',
       body: formData
   })
