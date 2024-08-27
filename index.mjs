@@ -35,14 +35,14 @@ let btnboxes = null;
                           <label for="Width${i}">Width</label>
                         </div>
                       </div>
-                  </div>
-                  <div class="row ">
                       <div class="col">
                         <div class="input-quote">
                           <input type="text" id="Height${i}" class="input-populated">
                           <label for="Height${i}">Height</label>
                         </div>    
                       </div>
+                  </div>
+                  <div class="row ">
                       <div class="col">
                         <div class="input-quote">
                           <input type="text" id="Weight${i}" class="input-populated">
@@ -50,12 +50,33 @@ let btnboxes = null;
                         </div>
                       </div>
                   </div>
-                  <label for="pictureOnScale${i}">Picture of the pallet on the scale with the scale reading in view.</label>
-                  <input type="file" id="pictureOnScale${i}">
-                  <label for="pictureSidePallet${i}">Picture of the side of the pallet</label>
-                  <input type="file" id="pictureSidePallet${i}">
+                  <div class="row ">
+                    <div class="col">
+                        <div class="input_containers">
+                          <label class="mylabel" for="pictureOnScale${i}">Click Here to Upload Picture 1</label>
+                          <input type="file" id="pictureOnScale${i}" style="display:none;">
+                          <p>Pallet on scale with scale reading in view</p>
+                        </div>
+                        <div class="input_containers">
+                          <label class="mylabel" for="pictureSidePallet${i}">Click Here to Upload Picture 2</label>
+                          <input type="file" id="pictureSidePallet${i}" style="display:none;">
+                          <p>Side view of pallet</p>
+                        </div>
+                      </div>
+                  </div>
+                  
               </div>`;
-            $('#pallet').append(palletDiv); 
+            $('#pallet').append(palletDiv);
+            $(`#pictureOnScale${i}`).on("change", function() {
+                const fileName = $(this).prop("files")[0]?.name;
+                const label = $(`label[for=pictureOnScale${i}]`);
+                label.text(fileName || "Click Here to Upload Picture 1");
+            });
+            $(`#pictureSidePallet${i}`).on("change", function() {
+                const fileName = $(this).prop("files")[0]?.name;
+                const label = $(`label[for=pictureSidePallet${i}]`);
+                label.text(fileName || "Click Here to Upload Picture 2");
+            });
         }
     }
   });
@@ -195,7 +216,8 @@ async function submitForm(){
   }
 // https://tryexpress-1jl5.onrender.com
 // http://localhost:3000
-  $('#log').text('Sending pallets');
+  $('#log').text('Sending pallets please wait...');
+  $('#Send').hide();
   $('#log').show();
   fetch('https://tryexpress-1jl5.onrender.com/v1/', {
       method: 'POST',
@@ -225,7 +247,6 @@ async function submitForm(){
       $('#btnShrinkWrappedNo').css('background-color', '#D9D9D9');
       $('#btnShrinkWrappedYes').css('background-color', '#D9D9D9');$('#btnboxesNo').css('background-color', '#D9D9D9');
       $('#btnboxesYes').css('background-color', '#D9D9D9');
-      $('#Send').hide();
       console.log('Data sent successfully:', data);
   })
   .catch(error => {
