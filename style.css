@@ -66,35 +66,38 @@ p{
 }
 
 .ptags {
-    background-color: #e0e0e0; 
-    color: #000000; 
-    border-radius: 5px; 
-    padding: 10px 20px; 
-    display: inline-block; 
-    font-size: 12px; 
-    text-align: center;
-    width: 60%;
+  background-color: #e0e0e0; 
+  color: #000000; 
+  border-radius: 5px; 
+  padding: 10px 20px; 
+  display: inline-block; 
+  font-size: 12px; 
+  text-align: center;
+  width: 60%;
 }
 
 .mybts {
-    background-color: #e0e0e0; /* Light grey background */
-    color: #000000; /* Black text color */
-    border-radius: 5px; /* Rounded corners */
-    padding: 9px 20px; /* Padding around the text */
-    font-size: 10px; /* Adjust font size as needed */
-    text-align: center; /* Center the text */
-    width: 15%;
+  background-color: #e0e0e0;
+  color: #000000; 
+  border-radius: 5px; 
+  padding: 9px 20px; 
+  font-size: 10px; 
+  text-align: center; 
+  width: 15%;
 }
 .mybts2 {
-    border-radius: 15px; /* Rounded corners */
-    padding: 13px; /* Padding around the text */
-    font-size: 14px; /* Adjust font size as needed */
-    font-weight: bold;
-    text-align: center; /* Center the text */
-    width: 90%;
-    margin-bottom: 10px;
-    color: white;
-    background-color: #25ABE1;
+  border-radius: 15px;
+  padding: 13px; 
+  font-size: 14px; 
+  font-weight: bold;
+  text-align: center;
+  width: 90%;
+  margin-bottom: 10px;
+  color: white;
+  background-color: #25ABE1;
+}
+#Send:hover{
+background-color: #187498;
 }
 
 .input-route, .input-quote {
