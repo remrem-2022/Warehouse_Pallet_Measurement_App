@@ -225,7 +225,9 @@ async function submitForm(){
   })
   .then(response => {
       if (!response.ok) {
-          throw new Error('Network response was not ok');
+        $('#log').text('Network response was not ok');
+        $('#log').show();
+        throw new Error('Network response was not ok');
       }
       return response.json();
   })
