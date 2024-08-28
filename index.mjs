@@ -13,6 +13,7 @@ let btnboxes = null;
     if (saleOrderNumber && numberOfPallet) {
       $('#Send').show();
       $('#log').text('');
+      $('.palletChecklistContainer').show();
       noofPallet = numberOfPallet
         // Clear existing pallet containers
         $('.palletContainer').remove();
@@ -53,29 +54,47 @@ let btnboxes = null;
                   <div class="row ">
                     <div class="col">
                         <div class="input_containers">
-                          <label class="mylabel" for="pictureOnScale${i}">Click Here to Upload Picture 1</label>
-                          <input type="file" id="pictureOnScale${i}" style="display:none;">
-                          <p>Pallet on scale with scale reading in view</p>
+                          <label class="mylabel" for="pictureOnScalePro${i}">Click Here to Upload Picture 1</label>
+                          <input type="file" id="pictureOnScalePro${i}" style="display:none;">
+                          <p>Pallet on scale with PRO sticker Readable (close up)</p>
                         </div>
                         <div class="input_containers">
-                          <label class="mylabel" for="pictureSidePallet${i}">Click Here to Upload Picture 2</label>
-                          <input type="file" id="pictureSidePallet${i}" style="display:none;">
+                          <label class="mylabel" for="pictureSidePalletDisplay${i}">Click Here to Upload Picture 2</label>
+                          <input type="file" id="pictureSidePalletDisplay${i}" style="display:none;">
                           <p>Side view of pallet</p>
+                        </div>
+                        <div class="input_containers">
+                          <label class="mylabel" for="packingList${i}">Click Here to Upload Picture 3</label>
+                          <input type="file" id="packingList${i}" style="display:none;">
+                          <p>Packing List</p>
                         </div>
                       </div>
                   </div>
                   
               </div>`;
             $('#pallet').append(palletDiv);
-            $(`#pictureOnScale${i}`).on("change", function() {
+            $(`#Weight${i}, #Height${i}, #Length${i}, #Width${i}`).on('input', function() {
+                var value = $(this).val();
+                value = value.replace(/[^0-9.]/g, '');
+                if ((value.match(/\./g) || []).length > 1) {
+                    value = value.replace(/\.+$/, '');
+                }
+                $(this).val(value);
+            });
+            $(`#pictureOnScalePro${i}`).on("change", function() {
                 const fileName = $(this).prop("files")[0]?.name;
-                const label = $(`label[for=pictureOnScale${i}]`);
+                const label = $(`label[for=pictureOnScalePro${i}]`);
                 label.text(fileName || "Click Here to Upload Picture 1");
             });
-            $(`#pictureSidePallet${i}`).on("change", function() {
+            $(`#pictureSidePalletDisplay${i}`).on("change", function() {
                 const fileName = $(this).prop("files")[0]?.name;
-                const label = $(`label[for=pictureSidePallet${i}]`);
+                const label = $(`label[for=pictureSidePalletDisplay${i}]`);
                 label.text(fileName || "Click Here to Upload Picture 2");
+            });
+            $(`#packingList${i}`).on("change", function() {
+                const fileName = $(this).prop("files")[0]?.name;
+                const label = $(`label[for=packingList${i}]`);
+                label.text(fileName || "Click Here to Upload Picture 3");
             });
         }
     }
@@ -164,8 +183,9 @@ async function submitForm(){
    
     if(noofPallet > 0) {
         for (let index = 0; index < noofPallet; index++) {
-            let imgonscale = $(`#pictureOnScale${index}`)[0].files[0];
-            let imgsidePallet = $(`#pictureSidePallet${index}`)[0].files[0];
+            let pictureOnScalePro = $(`#pictureOnScalePro${index}`)[0].files[0];
+            let pictureSidePalletDisplay = $(`#pictureSidePalletDisplay${index}`)[0].files[0];
+            let packingList = $(`#packingList${index}`)[0].files[0];
             let length = $(`#Length${index}`).val();
             let width = $(`#Width${index}`).val();
             let height = $(`#Height${index}`).val();
@@ -181,21 +201,28 @@ async function submitForm(){
                 Width: parseFloat(width),
                 Height: parseFloat(height),
                 Weight: parseFloat(weight),
-                palletScaleimg: null,
-                palletScalefile : null,
-                sidePalletimg: null,
-                sidePalletfile : null,
+                pictureOnScaleProimg: null,
+                pictureOnScaleProfile : null,
+                pictureSidePalletDisplayimg: null,
+                pictureSidePalletDisplayfile : null,
+                packingListimg : null,
+                packingListfile : null
             };
 
 
-            if(imgonscale){
-              palletobj.palletScaleimg = imgonscale.name
-              palletobj.palletScalefile = imgonscale
+            if(pictureOnScalePro){
+              palletobj.pictureOnScaleProimg = pictureOnScalePro.name
+              palletobj.pictureOnScaleProfile = pictureOnScalePro
             }
-            if(imgsidePallet){
+            if(pictureSidePalletDisplay){
               // console.log(imgsidePallet.name);
-              palletobj.sidePalletimg = imgsidePallet.name;
-              palletobj.sidePalletfile = imgsidePallet
+              palletobj.pictureSidePalletDisplayimg = pictureSidePalletDisplay.name;
+              palletobj.pictureSidePalletDisplayfile = pictureSidePalletDisplay
+            }
+            if(packingList){
+              // console.log(imgsidePallet.name);
+              palletobj.packingListimg = packingList.name;
+              palletobj.packingListfile = packingList
             }
           
             pallet.push(palletobj);
@@ -204,14 +231,18 @@ async function submitForm(){
 
     formData.append('palletdet', JSON.stringify(palletdet));
     formData.append('pallet', JSON.stringify(pallet));
+    formData.append('warehouse', "Bedtech@pinnacleteam.com");
 
     for (let i = 0; i < pallet.length; i++) {
-      console.log('here', pallet[i].palletScaleimg, pallet[i].sidePalletimg != null)
-      if (pallet[i].palletScalefile != null) {
-          formData.append('attachments[]', pallet[i].palletScalefile);
+      // console.log('here', pallet[i].palletScaleimg, pallet[i].sidePalletimg != null)
+      if (pallet[i].pictureOnScaleProfile != null) {
+          formData.append('attachments[]', pallet[i].pictureOnScaleProfile);
       }
-      if (pallet[i].sidePalletfile != null ) {
-          formData.append('attachments[]', pallet[i].sidePalletfile);
+      if (pallet[i].pictureSidePalletDisplayfile != null ) {
+          formData.append('attachments[]', pallet[i].pictureSidePalletDisplayfile);
+      }
+      if (pallet[i].packingListfile != null ) {
+          formData.append('attachments[]', pallet[i].packingListfile);
       }
   }
 // https://tryexpress-1jl5.onrender.com
@@ -219,7 +250,7 @@ async function submitForm(){
   $('#log').text('Sending pallets please wait...');
   $('#Send').hide();
   $('#log').show();
-  fetch('https://tryexpress-1jl5.onrender.com/v1/', {
+  fetch('http://localhost:3000/v1/', {
       method: 'POST',
       body: formData
   })
@@ -234,6 +265,9 @@ async function submitForm(){
   .then(data => {
       $('#log').text('Pallet Details sent!');
       $('#log').show();
+      setTimeout(() => {
+        $('#log').hide();
+      }, 5000);
       noofPallet = 0;
       btnbanding = null;
       btncornerProtectorsUse = null;
@@ -242,6 +276,7 @@ async function submitForm(){
       $('#saleOrderNumber').val('');
       $('#numberOfPallet').val('');
       $('.palletContainer').remove();
+      $('.palletChecklistContainer').hide();
       $('#btnbandingUsedYes').css('background-color', '#D9D9D9');
       $('#btnbandingUsedNo').css('background-color', '#D9D9D9');
       $('#btncornerProtectorsUseNo').css('background-color', '#D9D9D9');

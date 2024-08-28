@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <style>
+   label {
+      border: 1px solid #e5e5e5;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-family: 'Helvetica', sans-serif;
+      transition: .5s;
+      width: 50px;
+    }
+
+    label:hover {
+      cursor: pointer;
+      background-color: #eee;
+    }
+  </style>
+
+  <div class="input_container">
+    <label for="files" class="btn">Click Here to Upload Picture 1</label>
+    <input id="files" style="display:none;" type="file">
+  </div>
+
+ <div class="input_container">
+    <label for="pictureOnScale${i}">Click Here to Upload Picture 1</label>
+    <input type="file" id="pictureOnScale${i}">
+    <p>Pallet on scale with scale reading in view</p>
+  </div>
+  <!-- <div class="input_container">
+    <label for="pictureSidePallet${i}">Click Here to Upload Picture 2</label>
+    <input type="file" id="pictureSidePallet${i}">
+    <p>Side view of pallet</p>
+  </div>  -->
+  
+
+  
+  
+
+
+  <script>
+    $("#files").on("change", function() {
+        const fileName = $(this).prop("files")[0]?.name;
+        const label = $("label[for=files]");
+        label.text(fileName || "Click Here to Upload Picture 1");
+    });
+  </script>
+</div>
+</body>
+</html>

@@ -83,7 +83,7 @@ p{
   padding: 9px 20px; 
   font-size: 10px; 
   text-align: center; 
-  width: 15%;
+  width: 10%;
 }
 .mybts2 {
   border-radius: 15px;
@@ -97,7 +97,7 @@ p{
   background-color: #25ABE1;
 }
 #Send:hover{
-background-color: #187498;
+  background-color: #187498;
 }
 
 .input-route, .input-quote {
@@ -138,6 +138,7 @@ background-color: #187498;
 
 .palletChecklistContainer{
   margin: 14px 0;
+  display: none;
 }
 
 .input-quote .input-needs-input {
